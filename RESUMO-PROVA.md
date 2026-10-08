@@ -1,4 +1,4 @@
-# 📌 Resumo para a prova: Sistemas Operacionais Abertos (Encontros 01 a 04)
+# 📌 Resumo para a prova: Sistemas Operacionais Abertos (Encontros 01 a 04, 09 e 10)
 
 > Baseado nos slides do Prof. Diego Pereira (IFRN Parnamirim). O fio condutor da disciplina: **descobrir antes de alterar**, **consultar o sistema em vez de supor** e **privilégio só quando necessário**.
 
@@ -83,7 +83,37 @@ Usuário → Terminal/Shell → Aplicações/utilitários → Kernel Linux → H
 
 **Clássico da prova:** em `/home/aluno/soa/projetos/servidor-web/scripts`, ir a `/home/aluno/soa/documentos` → `cd ../../../documentos` ou `cd ~/soa/documentos`.
 
-## 5. ✅ Checklist de véspera
+## 5. Usuários e grupos (Encontro 09)
+
+- Usuário = identidade; o sistema usa o **UID** (número). **root = UID 0**. Comuns: 1000+. Contas de **serviço** (`www-data`, `daemon`) usam `nologin`.
+- `whoami` (quem sou) · `id` (UID, GID primário, grupos) · `groups` · `getent passwd` / `getent group`.
+- **`/etc/passwd`** = `usuario:x:UID:GID:GECOS:HOME:SHELL` (o `x` = senha está no **`/etc/shadow`**, só root lê). **`/etc/group`** = `grupo:x:GID:membros`.
+- **Primário** (1, campo GID do passwd) × **suplementares** (vários, /etc/group).
+- `useradd -m -s /bin/bash ana` · `passwd ana` · `userdel [-r]` (só `-r` apaga o home) · `groupadd` / `groupdel`.
+- `gpasswd -a USUÁRIO GRUPO` adiciona · `gpasswd -d` remove. `usermod -aG GRUPO USUÁRIO` também adiciona; **`-G` sem `-a` substitui tudo**. `-g` = primário.
+- Ciclo: **altere → consulte (`id` / `getent group`) → confirme.** Grupo novo só vale na sessão após novo login.
+
+## 6. Permissões (Encontro 10)
+
+- `ls -l`: `-rwxr-x---  ana  dev` → tipo (`-` arquivo, `d` diretório) + **dono | grupo | outros**.
+- Regra: é dono? usa o bloco do dono. Senão, está no grupo? usa o do grupo. Senão, **outros**. Só um bloco vale.
+- **Arquivo:** r ler · w alterar · x executar. **Diretório:** r listar · w criar/apagar · **x entrar/atravessar**.
+- **Octal:** r=4 w=2 x=1. 600 privado · 640 config · 644 público · 750/755 script · **770 pasta de equipe**.
+- **Simbólico:** `chmod u+x`, `g+w`, `o-r`, `u=rw,g=r,o=` (≡ 640).
+- `chmod` = permissões · `chown dono[:grupo]` = dono · `chgrp` = grupo.
+- **umask** tira permissões da base (arquivo 666, dir 777): 022 → 644/755 · 027 → 640/750.
+- *Permission denied* → `whoami` → `id` → `ls -l` / `ls -ld` → correção mínima. **Nunca 777, nem sudo no reflexo.**
+- Cenário: `mkdir -p /srv/projeto-web` → `chown root:projeto-web` → `chmod 770` → `ls -ld` → `drwxrwx--- root projeto-web`. Quem está fora do grupo cai em "outros" (`---`).
+
+## 7. Revisão das listas (scripts)
+
+- Padrão de relatório: **`>` na 1ª linha, `>>` nas outras**, `tee -a` para tela + arquivo.
+- `grep` escolhe **linhas**, `cut -d: -f1` escolhe **colunas**, `sort` ordena, `wc -l` conta.
+- `sudo echo x > /srv/arq` falha → `echo x | sudo tee /srv/arq`.
+- PID = processo · UID = usuário. `ps aux | grep bash` pode mostrar o próprio grep.
+- Guia em linguagem simples: [revisao-listas/](revisao-listas/).
+
+## 8. ✅ Checklist de véspera
 
 - [ ] Sei diferenciar kernel, GNU, distribuição, shell e terminal.
 - [ ] Sei as 4 liberdades do software livre.
@@ -95,5 +125,12 @@ Usuário → Terminal/Shell → Aplicações/utilitários → Kernel Linux → H
 - [ ] Sei a diferença update × upgrade.
 - [ ] Sei o que há em `/etc`, `/var`, `/home`, `/root`, `/dev`, `/proc`.
 - [ ] Monto caminhos relativos com `..` sem errar e crio `~/soa` de cabeça.
+- [ ] Leio uma linha do `/etc/passwd` e uma saída do `id` campo por campo.
+- [ ] Sei primário × suplementar, `gpasswd -a/-d` e o perigo do `usermod -G`.
+- [ ] Converto octal ↔ simbólico sem errar (750, 640, 770…).
+- [ ] Sei o que `x` significa em diretório.
+- [ ] Sei aplicar umask 022/027.
+- [ ] Sei montar `/srv/projeto-web` (root:projeto-web, 770) e dizer quem acessa.
+- [ ] Sei a diferença entre `>`, `>>` e `tee`.
 
 Treine: [questões](questoes-teoricas.md) · [simulados](simulados/) · [cola de comandos](COLA-COMANDOS.md).

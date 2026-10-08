@@ -1,4 +1,4 @@
-# Questões de autoteste (Encontros 01 a 04)
+# Questões de autoteste (Encontros 01 a 04, 09, 10 e revisão)
 
 Responda antes de abrir.
 
@@ -120,4 +120,86 @@ O espaço separa argumentos: o cd recebe dois. Use <code>cd "projeto linux"</cod
 
 <details><summary><b>30.</b> O que <code>touch</code> faz num arquivo que já existe?</summary>
 Atualiza as datas de acesso/modificação sem alterar o conteúdo.
+</details>
+
+## Encontros 09, 10 e revisão das listas
+
+<details><summary><b>31.</b> Qual o UID do root?</summary>
+0. O Linux trata UID 0 como administrador, que passa por cima das permissões normais.
+</details>
+
+<details><summary><b>32.</b> O que o <code>x</code> no 2º campo do <code>/etc/passwd</code> significa?</summary>
+Que a senha não está ali: o hash fica em <code>/etc/shadow</code>, que só o root lê.
+</details>
+
+<details><summary><b>33.</b> Quais são os 7 campos do <code>/etc/passwd</code>?</summary>
+<code>usuario:x:UID:GID:GECOS:HOME:SHELL</code>.
+</details>
+
+<details><summary><b>34.</b> Diferença entre grupo primário e suplementar?</summary>
+Primário: exatamente um, no campo GID do /etc/passwd; vira o grupo dos arquivos que o usuário cria. Suplementares: zero ou vários, listados no /etc/group; dão acesso extra.
+</details>
+
+<details><summary><b>35.</b> O que faz <code>useradd -m -s /bin/bash ana</code>?</summary>
+Cria a conta ana, com o home <code>/home/ana</code> (<code>-m</code>) e o shell Bash (<code>-s</code>). A senha vem depois, com <code>passwd ana</code>.
+</details>
+
+<details><summary><b>36.</b> Como adicionar e remover a ana do grupo projeto-web com gpasswd?</summary>
+<code>sudo gpasswd -a ana projeto-web</code> e <code>sudo gpasswd -d ana projeto-web</code>.
+</details>
+
+<details><summary><b>37.</b> Por que <code>usermod -G dev ana</code> é perigoso?</summary>
+Sem <code>-a</code>, substitui toda a lista de grupos suplementares (ana sai dos outros). Use <code>usermod -aG dev ana</code>.
+</details>
+
+<details><summary><b>38.</b> <code>userdel bruno</code> apaga /home/bruno?</summary>
+Não. Só com <code>userdel -r bruno</code>.
+</details>
+
+<details><summary><b>39.</b> Diferença entre <code>id ana</code> e <code>getent group projeto-web</code>?</summary>
+<code>id</code> parte do usuário (grupos dela); <code>getent group</code> parte do grupo (membros dele).
+</details>
+
+<details><summary><b>40.</b> O que significam r, w e x em um diretório?</summary>
+r = listar nomes; w = criar/remover/renomear entradas; x = atravessar/entrar.
+</details>
+
+<details><summary><b>41.</b> Converta <code>rwxr-x---</code> para octal.</summary>
+750 (4+2+1 | 4+0+1 | 0).
+</details>
+
+<details><summary><b>42.</b> O que é <code>chmod 640</code> em simbólico?</summary>
+<code>rw-r-----</code> = <code>chmod u=rw,g=r,o= arquivo</code>.
+</details>
+
+<details><summary><b>43.</b> chmod, chown e chgrp mudam o quê?</summary>
+chmod: permissões. chown: dono (e grupo, com <code>dono:grupo</code>). chgrp: grupo.
+</details>
+
+<details><summary><b>44.</b> Com <code>umask 027</code>, que permissões têm arquivo e diretório novos?</summary>
+Arquivo 640 (base 666); diretório 750 (base 777).
+</details>
+
+<details><summary><b>45.</b> Pertencer ao grupo projeto-web garante acesso a /srv/projeto-web?</summary>
+Não. O diretório precisa ser do grupo projeto-web e conceder permissões ao grupo (ex.: 770). Além disso, o usuário precisa logar de novo após entrar no grupo.
+</details>
+
+<details><summary><b>46.</b> Qual a sequência de diagnóstico de <i>Permission denied</i>?</summary>
+<code>whoami</code> → <code>id</code> → <code>ls -l</code>/<code>ls -ld</code> → identificar o bloco aplicado (dono → grupo → outros) → correção mínima. Nunca 777 nem sudo como reflexo.
+</details>
+
+<details><summary><b>47.</b> Diferença entre <code>></code> e <code>>></code>?</summary>
+<code>></code> cria/substitui o arquivo; <code>>></code> acrescenta no final. <code>tee -a</code> mostra na tela e acrescenta.
+</details>
+
+<details><summary><b>48.</b> Por que <code>sudo echo x > /srv/arquivo</code> falha?</summary>
+O redirecionamento é feito pelo shell do usuário, sem privilégio. Use <code>echo x | sudo tee /srv/arquivo</code>.
+</details>
+
+<details><summary><b>49.</b> Diferença entre PID e UID?</summary>
+PID identifica um processo; UID identifica uma conta de usuário.
+</details>
+
+<details><summary><b>50.</b> Por que <code>ps aux &#124; grep bash</code> pode listar o próprio grep?</summary>
+Porque o comando "grep bash" contém a palavra bash e está rodando naquele momento. Filtre com <code>grep -v grep</code>.
 </details>

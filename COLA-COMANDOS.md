@@ -1,4 +1,4 @@
-# 🧾 Cola de comandos (Encontros 01 a 04)
+# 🧾 Cola de comandos (Encontros 01 a 04, 09 e 10)
 
 ## Identificação
 ```bash
@@ -63,3 +63,57 @@ cd "projeto linux"     # nome com espaço (ou projeto\ linux)
 man comando            # ↑↓ navegar · PgUp/PgDn · / pesquisar · q sair
 comando --help
 ```
+
+## Texto e relatórios (revisão das listas)
+```bash
+cut -d: -f1 /etc/passwd          # 1ª coluna (nomes), separador :
+cut -d: -f1 /etc/passwd | sort   # | passa a saída adiante; sort ordena
+grep "/bin/bash$" /etc/passwd    # linhas que terminam com /bin/bash
+grep -c "nologin$" /etc/passwd   # conta as linhas que casam
+wc -l < /etc/passwd              # conta linhas (só o número)
+echo "TITULO" > rel.txt          # > cria/substitui
+date >> rel.txt                  # >> acrescenta
+uptime | tee -a rel.txt          # tela + acrescenta no arquivo
+echo "x" | sudo tee /srv/arq     # gravar onde só root escreve (sudo + > não funciona)
+ps aux                           # todos os processos
+ps aux | grep bash | grep -v grep
+ps -p 1                          # processo de PID 1
+```
+
+## Usuários e grupos (Encontro 09)
+```bash
+whoami ; id ; id ana ; groups ana
+getent passwd ana                       # usuario:x:UID:GID:GECOS:HOME:SHELL
+getent group projeto-web                # grupo:x:GID:membros
+sudo head /etc/shadow                   # hashes de senha (só root)
+sudo groupadd projeto-web               # cria grupo
+sudo groupdel projeto-web               # remove grupo
+sudo useradd -m -s /bin/bash ana        # cria usuário com home e Bash
+sudo passwd ana                         # define senha
+sudo userdel ana                        # remove conta (mantém /home)
+sudo userdel -r ana                     # remove conta E home
+sudo gpasswd -a ana projeto-web         # adiciona ao grupo (usuário, grupo)
+sudo gpasswd -d ana projeto-web         # remove do grupo
+sudo usermod -aG projeto-web ana        # adiciona (grupo, usuário): SEMPRE com -a
+sudo usermod -g grupo ana               # muda o grupo PRIMÁRIO
+sudo usermod -s /bin/bash ana           # muda o shell
+```
+
+## Permissões (Encontro 10)
+```bash
+ls -l arquivo                           # permissões do arquivo
+ls -ld diretorio                        # permissões do próprio diretório
+chmod u+x script.sh                     # simbólico: u g o a / + - = / r w x
+chmod u=rw,g=r,o= doc.txt               # = define exatamente  (≡ 640)
+chmod 640 doc.txt                       # octal: r=4 w=2 x=1 (dono grupo outros)
+sudo chown ana relatorio.txt            # muda dono
+sudo chown ana:projeto-web relatorio.txt  # dono e grupo
+sudo chgrp projeto-web relatorio.txt    # muda grupo
+umask                                   # máscara atual (0022 → 644/755)
+umask 027                               # arquivos 640, diretórios 750
+sudo -u ana ls /srv/projeto-web         # testa um comando como outro usuário
+```
+
+| Octal | 600 | 640 | 644 | 750 | 755 | 770 |
+|---|---|---|---|---|---|---|
+| Simbólico | `rw-------` | `rw-r-----` | `rw-r--r--` | `rwxr-x---` | `rwxr-xr-x` | `rwxrwx---` |
