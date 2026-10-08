@@ -7,6 +7,7 @@ Material de estudo de **Sistemas Operacionais Abertos** (TSI / IFRN Campus Parna
 1. **[RESUMO-PROVA.md](RESUMO-PROVA.md)**: os encontros numa página, com checklist de véspera.
    - 🆕 **[Revisão das Listas I e II, explicada do zero](revisao-listas/)**: as 5 questões comentadas em linguagem simples + scripts testados.
    - 🆕 **[COMO-CRIAR-SCRIPT.md](COMO-CRIAR-SCRIPT.md)**: passo a passo para montar um script do zero (com modelo e treino).
+   - 🆕 **[Exemplos de scripts](exemplos-scripts/)**: 6 scripts comentados sobre UID, PID, ficha da máquina e processamento, com exercícios.
 2. **[COLA-COMANDOS.md](COLA-COMANDOS.md)**: todos os comandos vistos, agrupados.
 3. **[questoes-teoricas.md](questoes-teoricas.md)**: 50 perguntas de autoteste (respostas escondidas).
 4. **Simulados:**
@@ -24,6 +25,7 @@ Material de estudo de **Sistemas Operacionais Abertos** (TSI / IFRN Campus Parna
 | 05–08 | *ainda não adicionados* | |
 | 09 | [Usuários e Grupos](aulas/09-usuarios-grupos/) (UID/GID, /etc/passwd, /etc/shadow, /etc/group, useradd, gpasswd, usermod) | README + `laboratorio.sh` |
 | 10 | [Permissões e Controle de Acesso](aulas/10-permissoes-controle-acesso/) (ls -l, rwx, chmod simbólico/octal, chown, chgrp, umask, Permission denied) | README + `laboratorio.sh` |
+| Ex. | [Exemplos de scripts](exemplos-scripts/) (identidade/UID, contas por UID, PID × UID, ficha da máquina, top CPU/memória, relatório geral) | README + 6 scripts |
 | Rev. | [Revisão das Listas I e II](revisao-listas/) (Q03, Q09, Q01, Q05, Q10: grep/cut, relatórios, ps, grupos, /srv/projeto-web) | README + `scripts/` |
 
 ## ▶️ Scripts de conferência (rode na VM Debian)
