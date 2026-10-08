@@ -6,6 +6,7 @@ Material de estudo de **Sistemas Operacionais Abertos** (TSI / IFRN Campus Parna
 
 1. **[RESUMO-PROVA.md](RESUMO-PROVA.md)**: os encontros numa página, com checklist de véspera.
    - 🆕 **[Revisão das Listas I e II, explicada do zero](revisao-listas/)**: as 5 questões comentadas em linguagem simples + scripts testados.
+   - 🆕 **[COMO-CRIAR-SCRIPT.md](COMO-CRIAR-SCRIPT.md)**: passo a passo para montar um script do zero (com modelo e treino).
 2. **[COLA-COMANDOS.md](COLA-COMANDOS.md)**: todos os comandos vistos, agrupados.
 3. **[questoes-teoricas.md](questoes-teoricas.md)**: 50 perguntas de autoteste (respostas escondidas).
 4. **Simulados:**

@@ -109,7 +109,7 @@ chmod 640 doc.txt                       # octal: r=4 w=2 x=1 (dono grupo outros)
 sudo chown ana relatorio.txt            # muda dono
 sudo chown ana:projeto-web relatorio.txt  # dono e grupo
 sudo chgrp projeto-web relatorio.txt    # muda grupo
-umask                                   # máscara atual (0022 → 644/755)
+umask                                   # máscara atual (0022 → 644/755; usuário no Debian 13 costuma ter 0002 → 664/775)
 umask 027                               # arquivos 640, diretórios 750
 sudo -u ana ls /srv/projeto-web         # testa um comando como outro usuário
 ```

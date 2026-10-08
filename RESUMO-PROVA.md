@@ -101,7 +101,7 @@ Usuário → Terminal/Shell → Aplicações/utilitários → Kernel Linux → H
 - **Octal:** r=4 w=2 x=1. 600 privado · 640 config · 644 público · 750/755 script · **770 pasta de equipe**.
 - **Simbólico:** `chmod u+x`, `g+w`, `o-r`, `u=rw,g=r,o=` (≡ 640).
 - `chmod` = permissões · `chown dono[:grupo]` = dono · `chgrp` = grupo.
-- **umask** tira permissões da base (arquivo 666, dir 777): 022 → 644/755 · 027 → 640/750.
+- **umask** tira permissões da base (arquivo 666, dir 777): 022 → 644/755 · 027 → 640/750 · 002 → 664/775 (padrão do usuário comum no Debian 13).
 - *Permission denied* → `whoami` → `id` → `ls -l` / `ls -ld` → correção mínima. **Nunca 777, nem sudo no reflexo.**
 - Cenário: `mkdir -p /srv/projeto-web` → `chown root:projeto-web` → `chmod 770` → `ls -ld` → `drwxrwx--- root projeto-web`. Quem está fora do grupo cai em "outros" (`---`).
 

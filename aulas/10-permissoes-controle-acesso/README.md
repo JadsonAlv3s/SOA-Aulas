@@ -183,6 +183,7 @@ touch teste.txt && mkdir teste-dir
 ls -l teste.txt ; ls -ld teste-dir     # -rw-r----- e drwxr-x---
 ```
 - Arquivo **nunca** nasce com `x` (base 666): por isso script precisa de `chmod +x`.
+- ⚠️ **Na VM Debian 13**, o usuário comum costuma ver `umask` = **0002** (não 0022): o login aplica 002 quando o usuário tem grupo próprio com o mesmo nome. Aí arquivos nascem **664** (`rw-rw-r--`) e diretórios **775**. Com `sudo`/root continua 0022. Confira sempre com `umask` antes de prever.
 - Parece subtração (666 − 027 → 640), mas é uma **máscara de bits**: cada bit ligado na umask **desliga** aquela permissão. Ex.: `umask 077` em arquivo → 600 (não "-11").
 
 ## 9. Erros comuns
@@ -220,7 +221,7 @@ Em `~/aula10`, crie `publico.txt`, `privado.txt`, `compartilhado.txt` e `script.
 ```bash
 mkdir ~/aula10 && cd ~/aula10
 touch publico.txt privado.txt compartilhado.txt script.sh
-ls -l                     # tudo nasce -rw-r--r-- (umask 022)
+ls -l                     # nascem -rw-rw-r-- (umask 0002 do Debian 13) ou -rw-r--r-- (umask 0022)
 chmod 644 publico.txt     # -rw-r--r--
 chmod 600 privado.txt     # -rw-------
 chmod 755 script.sh       # -rwxr-xr-x
