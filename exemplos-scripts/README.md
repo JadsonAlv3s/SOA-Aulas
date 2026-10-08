@@ -3,6 +3,8 @@
 > Mais scripts no estilo das listas, para treinar. Todos usam o mesmo padrão: **título → comando → `>>` arquivo**.
 > Não sabe montar um script ainda? Leia antes o [COMO-CRIAR-SCRIPT.md](../COMO-CRIAR-SCRIPT.md).
 > Todos foram testados num Debian 13 e **não precisam de sudo**.
+>
+> 📄 **Versão para imprimir:** [Exemplos-de-Scripts-SOA.pdf](Exemplos-de-Scripts-SOA.pdf) (com respostas visíveis e o código completo no apêndice).
 
 | # | Script | Tema | Aulas |
 |---|---|---|---|
